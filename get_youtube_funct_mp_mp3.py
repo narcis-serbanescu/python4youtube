@@ -40,11 +40,11 @@ def get_file(line_no, youtube_link):
     print(yt.streams.filter(progressive=True))
 
     # Audio only mp4
-    # ya = yt.streams.filter(only_audio=True).first()
-    ya = yt.streams.filter().first()
+    ya = yt.streams.filter(only_audio=True).first()
+    # ya = yt.streams.filter().first()
 
-    ys = yt.streams.get_highest_resolution()
-    print("Hihgest Resolution: ", ys)
+    # ys = yt.streams.get_highest_resolution()
+    # print("Hihgest Resolution: ", ys)
 
     file_name = yt.title
     char = "|/<>?,:'}{][+_-=)(*&%$#@!~` "
@@ -67,15 +67,17 @@ def get_file(line_no, youtube_link):
         start_time_1 = datetime.now()
 
         ya.download(video_folder, filename=file_name_mp4)
-        video = VideoFileClip(video_folder + file_name_mp4)
-        video.audio.write_audiofile(path2file_name_mp3)
+        # video = VideoFileClip(video_folder + file_name_mp4)
+        # video.audio.write_audiofile(path2file_name_mp3)
+        video = AudioFileClip(video_folder + file_name_mp4)
+        video.write_audiofile(path2file_name_mp3)
         video.close()
 
         end_time_1 = datetime.now()
     except Exception as e:
         print("Error ...", e)
     cprint("Task completed!", "green")
-    cprint(end_time_1 - start_time_1, "green")
+    # cprint(end_time_1 - start_time_1, "green")
 
     # Sort playlist in m3u file
     # subprocess.run(["sort", "-h", path2playlist, ">", path2playlist])
@@ -102,7 +104,8 @@ def main():
         # yt_file = "ylinks_S02.txt"
         # yt_file = "ylinks_Coldplay.txt"
         # yt_file = "ylinks_EndlessRiver.txt"
-        yt_file = "ylinks_Hart.txt"
+        # yt_file = "ylinks_Hart.txt"
+        yt_file = "TheFaces_Nod.txt"
         try:
             ytlist = open(yt_file, "r")
 

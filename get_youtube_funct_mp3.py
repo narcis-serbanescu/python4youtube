@@ -10,8 +10,6 @@ import snoop
 
 # @snoop
 def get_file(line_no, youtube_link):
-    # global yt
-
     # Get the youtube link
     print("Link: ", youtube_link)
     yt = YouTube(youtube_link)
@@ -34,11 +32,24 @@ def get_file(line_no, youtube_link):
             pass
         if "Video Not Available" not in yt.title:
             break
+    '''
+            else:
+                # execute if no exception
+                # yt.streams.first().download()
+                yt = YouTube(youtube_link)
+                cprint(yt.title, "cyan")
+                break
+            finally:
+                # Some code ...(always executed)
+                yt = YouTube(youtube_link)
+                cprint(yt.title, "green")
+                print(f'Finally ... downloading video again: {youtube_link}')
+    '''
 
     base_folder = "/Users/snarcis/tmp/mp3/"
 
     # Description of video
-    # print("Description: ", yt.description)
+    print("Description: ", yt.description)
     desc_file = base_folder + "Read.me"
     with open (desc_file, "a") as desc:
         desc.write(yt.description + '\n')
@@ -101,7 +112,6 @@ def get_file(line_no, youtube_link):
             os.remove(os.path.join(video_folder, mp4_file))
     '''
 
-
 def main():
     max_proc = mp.cpu_count()
     cprint("Number of processors: " + str(max_proc), "cyan")
@@ -110,7 +120,14 @@ def main():
     line_no_list = list()
 
     if len(youtube_links_list) == 0:
-        yt_file = "dan_dart.txt"
+        # yt_file = "ylinks_S02.txt"
+        # yt_file = "ylinks_Coldplay_2021.txt"
+        # yt_file = "ylinks_Coldplay.txt"
+        # yt_file = "ylinks_ABBA2021Voyage.txt"
+        # yt_file = "ylinks_EndlessRiver.txt"
+        # yt_file = "ylinks_Hart.txt"
+        # yt_file = "TheFaces_Nod.txt"
+        yt_file = "ylinks_DBowie_GH.txt"
 
         try:
             ytlist = open(yt_file, "r")
@@ -125,7 +142,7 @@ def main():
                 line_no_list.append(lno)
 
                 # Run without mp
-                # get_file(lno, ytl)
+                get_file(lno, ytl)
             ytlist.close()
         except IOError as e:
             cprint("Unable to open file " + yt_file, "red")
@@ -136,6 +153,7 @@ def main():
             youtube_links_list = youtube_links.split(",")
             print("Youtube links: ", youtube_links_list)
 
+    '''
     threads = len(youtube_links_list)
     if threads >= max_proc:
         threads == max_proc
@@ -161,7 +179,7 @@ def main():
     pool.join()
     end_time = datetime.now()
     print("Duration: ", end_time - start_time)
-
+    '''
 
 if __name__ == "__main__":
     main()

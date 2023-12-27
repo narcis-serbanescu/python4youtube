@@ -1,7 +1,6 @@
 from pytube import Playlist, YouTube
 from pytube.exceptions import VideoUnavailable, AgeRestrictedError
-# playlist_url = 'https://youtube.com/playlist?list=special_playlist_id'
-playlist_url = 'https://www.youtube.com/playlist?list=PL7kQk4rPa1_6a-XMzaxGlLKtHVEw4ZDk8'
+playlist_url = 'https://youtube.com/playlist?list=special_playlist_id'
 p = Playlist(playlist_url)
 for url in p.video_urls:
     try:
